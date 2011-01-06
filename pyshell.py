@@ -59,4 +59,8 @@ def __prompt__(defaultprompt):
         
         return raw_input(p)
         
+def cd(todir):
+    todir=os.path.expanduser(todir)
+    os.chdir(todir)
+        
 code.interact("",__prompt__,globals())
