@@ -1,0 +1,6 @@
+pysh.py aka pyshell.py is a simple python script that allows you to call any system command as a python function (as opposed to calling a python function with an argument of the command to run). for instance:
+$ ./pyshell.py
+>>> ls()
+pyshell.py README
+>>> os.chdir("~")
+>>> 
