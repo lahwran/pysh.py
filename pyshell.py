@@ -5,6 +5,7 @@ from glob import glob
 import code
 import subprocess
 import readline
+import random
 
 for i in os.environ:
     globals()[i] = os.environ[i]
@@ -29,7 +30,7 @@ __path__=PATH.split(":")
 __path__.reverse()
 allcommands={}
 
-
+PROMPT="%u@%h:%d% "
 
 
 for i in __path__:
@@ -43,4 +44,19 @@ class shellcommands:
         return allcommands[name]
 sh=shellcommands()
         
-code.interact("",raw_input,globals())
+def __prompt__(defaultprompt):
+    curdir = os.getcwd()
+    #print '!'+defaultprompt+'!'
+    R=str(random.randint(0,10000000))
+    home=os.path.expanduser("~")
+    if (R+curdir).startswith(R+home):
+        curdir=(R+curdir).replace(R+home, "~")
+    p = PROMPT.replace("%d",curdir).replace("%u",USER).replace("%h",os.uname()[1])
+    if defaultprompt == ">>> ":
+        return raw_input(p)
+    else:
+        p=(" "*(len(p)-4))+'... '
+        
+        return raw_input(p)
+        
+code.interact("",__prompt__,globals())
